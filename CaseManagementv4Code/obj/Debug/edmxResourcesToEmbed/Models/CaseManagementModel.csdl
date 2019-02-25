@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="CaseManagementv4Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="CaseDetail">
+    <Key>
+      <PropertyRef Name="DetailsID" />
+    </Key>
+    <Property Name="DetailsID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CaseID" Type="Int32" Nullable="false" />
+    <Property Name="DefendantLastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="DefendantFirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="DefendantAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="DefendantCity" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="DefendantState" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="CaseMaster" Relationship="Self.FK__CaseDetai__CaseI__276EDEB3" FromRole="CaseDetails" ToRole="CaseMaster" />
+    <NavigationProperty Name="Charges" Relationship="Self.FK__Charges__Details__286302EC" FromRole="CaseDetails" ToRole="Charges" />
+  </EntityType>
+  <EntityType Name="CaseMaster">
+    <Key>
+      <PropertyRef Name="CaseID" />
+    </Key>
+    <Property Name="CaseID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CaseNumber" Type="Int32" Nullable="false" />
+    <Property Name="Agency" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Judge" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="FilingDate" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="CaseDetails" Relationship="Self.FK__CaseDetai__CaseI__276EDEB3" FromRole="CaseMaster" ToRole="CaseDetails" />
+  </EntityType>
+  <EntityType Name="Charge">
+    <Key>
+      <PropertyRef Name="ChargeID" />
+    </Key>
+    <Property Name="ChargeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DetailsID" Type="Int32" Nullable="false" />
+    <Property Name="ChargeName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Severity" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ORCSection" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+    <NavigationProperty Name="CaseDetail" Relationship="Self.FK__Charges__Details__286302EC" FromRole="Charges" ToRole="CaseDetails" />
+  </EntityType>
+  <Association Name="FK__CaseDetai__CaseI__276EDEB3">
+    <End Role="CaseMaster" Type="Self.CaseMaster" Multiplicity="1" />
+    <End Role="CaseDetails" Type="Self.CaseDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CaseMaster">
+        <PropertyRef Name="CaseID" />
+      </Principal>
+      <Dependent Role="CaseDetails">
+        <PropertyRef Name="CaseID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Charges__Details__286302EC">
+    <End Role="CaseDetails" Type="Self.CaseDetail" Multiplicity="1" />
+    <End Role="Charges" Type="Self.Charge" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CaseDetails">
+        <PropertyRef Name="DetailsID" />
+      </Principal>
+      <Dependent Role="Charges">
+        <PropertyRef Name="DetailsID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="CaseManagementv4Entities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="CaseDetails" EntityType="Self.CaseDetail" />
+    <EntitySet Name="CaseMasters" EntityType="Self.CaseMaster" />
+    <EntitySet Name="Charges" EntityType="Self.Charge" />
+    <AssociationSet Name="FK__CaseDetai__CaseI__276EDEB3" Association="Self.FK__CaseDetai__CaseI__276EDEB3">
+      <End Role="CaseMaster" EntitySet="CaseMasters" />
+      <End Role="CaseDetails" EntitySet="CaseDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Charges__Details__286302EC" Association="Self.FK__Charges__Details__286302EC">
+      <End Role="CaseDetails" EntitySet="CaseDetails" />
+      <End Role="Charges" EntitySet="Charges" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="CaseManagementv4ModelStoreContainer" CdmEntityContainer="CaseManagementv4Entities">
+    <EntitySetMapping Name="CaseDetails">
+      <EntityTypeMapping TypeName="CaseManagementv4Model.CaseDetail">
+        <MappingFragment StoreEntitySet="CaseDetails">
+          <ScalarProperty Name="DetailsID" ColumnName="DetailsID" />
+          <ScalarProperty Name="CaseID" ColumnName="CaseID" />
+          <ScalarProperty Name="DefendantLastName" ColumnName="DefendantLastName" />
+          <ScalarProperty Name="DefendantFirstName" ColumnName="DefendantFirstName" />
+          <ScalarProperty Name="DefendantAddress" ColumnName="DefendantAddress" />
+          <ScalarProperty Name="DefendantCity" ColumnName="DefendantCity" />
+          <ScalarProperty Name="DefendantState" ColumnName="DefendantState" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CaseMasters">
+      <EntityTypeMapping TypeName="CaseManagementv4Model.CaseMaster">
+        <MappingFragment StoreEntitySet="CaseMaster">
+          <ScalarProperty Name="CaseID" ColumnName="CaseID" />
+          <ScalarProperty Name="CaseNumber" ColumnName="CaseNumber" />
+          <ScalarProperty Name="Agency" ColumnName="Agency" />
+          <ScalarProperty Name="Judge" ColumnName="Judge" />
+          <ScalarProperty Name="FilingDate" ColumnName="FilingDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Charges">
+      <EntityTypeMapping TypeName="CaseManagementv4Model.Charge">
+        <MappingFragment StoreEntitySet="Charges">
+          <ScalarProperty Name="ChargeID" ColumnName="ChargeID" />
+          <ScalarProperty Name="DetailsID" ColumnName="DetailsID" />
+          <ScalarProperty Name="ChargeName" ColumnName="ChargeName" />
+          <ScalarProperty Name="Severity" ColumnName="Severity" />
+          <ScalarProperty Name="ORCSection" ColumnName="ORCSection" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
